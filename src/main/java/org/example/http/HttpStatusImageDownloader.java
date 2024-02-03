@@ -18,14 +18,17 @@ public class HttpStatusImageDownloader {
 
     private static final HttpClient client = HttpClient.newHttpClient();
 
-    public static void downloadStatusImage(int code) throws URISyntaxException, IOException, IllegalStatusCodeException, InterruptedException {
-        String url = HttpStatusChecker.getStatusUrl(code);
+    public static Path downloadStatusCodeImage(int statusCode) throws IllegalStatusCodeException,
+            URISyntaxException, IOException, InterruptedException {
+
+        String url = HttpStatusChecker.getStatusCodeUrl(statusCode);
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .GET()
                 .build();
 
-        Path path = Paths.get(String.format(PATH_TEMPLATE, code));
+        Path path = Paths.get(String.format(PATH_TEMPLATE, statusCode));
         client.send(request, HttpResponse.BodyHandlers.ofFile(path));
+        return path;
     }
 }

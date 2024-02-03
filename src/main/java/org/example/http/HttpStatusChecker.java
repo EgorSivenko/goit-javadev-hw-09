@@ -17,8 +17,10 @@ public class HttpStatusChecker {
 
     private static final HttpClient client = HttpClient.newHttpClient();
 
-    public static String getStatusUrl(int code) throws URISyntaxException, IOException, InterruptedException, IllegalStatusCodeException {
-        String url = String.format(URL_TEMPLATE, code);
+    public static String getStatusCodeUrl(int statusCode) throws IllegalStatusCodeException,
+            URISyntaxException, IOException, InterruptedException {
+
+        String url = String.format(URL_TEMPLATE, statusCode);
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(new URI(url))
                 .GET()
@@ -27,7 +29,7 @@ public class HttpStatusChecker {
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
         if (response.statusCode() == HttpURLConnection.HTTP_NOT_FOUND) {
-            throw new IllegalStatusCodeException("Invalid status code: " + code);
+            throw new IllegalStatusCodeException("Invalid status code: " + statusCode);
         }
         return url;
     }
