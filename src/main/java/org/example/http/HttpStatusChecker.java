@@ -1,5 +1,6 @@
 package org.example.http;
 
+import lombok.experimental.UtilityClass;
 import org.example.exception.IllegalStatusCodeException;
 
 import java.io.IOException;
@@ -10,6 +11,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+@UtilityClass
 public class HttpStatusChecker {
     private static final String URL_TEMPLATE = "https://http.cat/%d.jpg";
 

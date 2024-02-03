@@ -1,5 +1,6 @@
 package org.example.http;
 
+import lombok.experimental.UtilityClass;
 import org.example.exception.IllegalStatusCodeException;
 
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.net.http.HttpResponse;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+@UtilityClass
 public class HttpStatusImageDownloader {
     private static final String PATH_TEMPLATE = "src/main/resources/images/%d.jpg";
 
