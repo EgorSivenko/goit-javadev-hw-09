@@ -9,6 +9,7 @@ import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -28,6 +29,9 @@ public class HttpStatusImageDownloader {
                 .build();
 
         Path path = Paths.get(String.format(PATH_TEMPLATE, statusCode));
+
+        Files.createDirectories(path.getParent());
+
         client.send(request, HttpResponse.BodyHandlers.ofFile(path));
         return path;
     }
